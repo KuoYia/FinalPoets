@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/BeiTai/src/main/webapp/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/BeiTai/src/main/webapp" relative="/" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/BeiTai/src/main/java" />
+          <root url="file://$MODULE_DIR$/BeiTai/src/main/resources" />
+        </sourceRoots>
+      </configuration>
+    </facet>
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/LearnPoemF/target/classes" />
-    <output-test url="file://$MODULE_DIR$/LearnPoemF/target/test-classes" />
-    <content url="file://$MODULE_DIR$/LearnPoemF">
-      <sourceFolder url="file://$MODULE_DIR$/LearnPoemF/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/LearnPoemF/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/LearnPoemF/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/LearnPoemF/target" />
+    <output url="file://$MODULE_DIR$/BeiTai/target/classes" />
+    <output-test url="file://$MODULE_DIR$/BeiTai/target/test-classes" />
+    <content url="file://$MODULE_DIR$/BeiTai">
+      <sourceFolder url="file://$MODULE_DIR$/BeiTai/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/BeiTai/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/BeiTai/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/BeiTai/target" />
     </content>
-    <orderEntry type="jdk" jdkName="11" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="21" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:6.1.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:6.1.9" level="project" />
@@ -26,9 +40,10 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:6.1.12" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:6.1.12" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.22.1" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.15.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.15.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.15.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: jakarta.servlet:jakarta.servlet-api:6.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.16.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.16.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.16.0" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.21" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.3" level="project" />
@@ -40,10 +55,12 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:6.1.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:6.1.9" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.9" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:2.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.3" level="project" />
     <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:6.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:4.7" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:6.1.9" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:6.1.9" level="project" />
   </component>
 </module>

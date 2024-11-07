@@ -7,10 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="LearnPoemF" />
+        <module name="BeiTai" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="BeiTai" target="1.8" />
       <module name="LearnPoemF" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="BeiTai" options="-parameters" />
+    </option>
   </component>
 </project>

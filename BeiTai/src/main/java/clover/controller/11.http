@@ -1,0 +1,16 @@
+GET http://localhost:80/api/item?id=99
+Accept: application/json
+
+###
+GET http://localhost:80/api/item?id=99
+Accept: application/json
+
+###
+
+GET  http://localhost:8080/api/poets/queryPoet/1
+Accept: application/json
+
+###
+# @no-cookie-jar
+GET http://localhost:8080/api/poets/1
+
