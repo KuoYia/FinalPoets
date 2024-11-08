@@ -9,8 +9,8 @@ import java.util.List;
 @Service
 public interface PoetServiceImpl {
     Poet findById(int id);
-    Poet insert(Poet poet);
-    void update(Poet poet);
+    int insert(Poet poet);
+    int update(Poet poet);
     boolean delete(int id);
     void insertPoetsInBatch(List<Poet> poets);
     void deletePoetsInBatch(List<Integer> ids);

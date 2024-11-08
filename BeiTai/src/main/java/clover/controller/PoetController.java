@@ -2,11 +2,14 @@ package clover.controller;
 
 import clover.pojo.Poet;
 import clover.service.impl.PoetServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 @RestController
@@ -15,28 +18,19 @@ public class PoetController {
 
     @Autowired
     private PoetServiceImpl poetService;
-    @GetMapping("/queryPoet/{id}")
-    public Poet queryPoetById(@PathVariable int id) {
-        System.out.println("模拟查询指定id的诗人");
-        Poet poet = new Poet();
-        poet.setId(id);
-        poet.setName("李白"); // 假设这是诗人的名字
-        poet.setDynasty("唐"); // 假设这是诗人的朝代
-        poet.setBiography("唐代著名诗人"); // 假设这是诗人的简介
-        // 假设诗人的生卒日期，这里使用Java的Date类
-        poet.setBirthDate(java.sql.Date.valueOf(LocalDate.of(2004, 1, 1)));
-        poet.setDeathDate(java.sql.Date.valueOf(LocalDate.of(0000, 1, 1)));
-        return poet;
-    }
 
-   //删除诗人
+    private static final Logger logger = LoggerFactory.getLogger(PoetController.class);
     @DeleteMapping("/{id}")
-    public ResponseEntity<Integer> deletePoet(@PathVariable int id) {
+    public ResponseEntity<?> deletePoet(@PathVariable int id) {
         try {
-            poetService.delete(id);
-            return ResponseEntity.ok(1);
+            boolean result = poetService.delete(id);
+            if (result) {
+                return ResponseEntity.ok(1); // 删除成功
+            } else {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("存在级联关系的诗人无法删除"); // 存在级联关系
+            }
         } catch (Exception e) {
-            return ResponseEntity.ok(0);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("删除诗人时发生错误：" + e.getMessage()); // 其他错误
         }
     }
 
@@ -49,7 +43,7 @@ public class PoetController {
     }
 
 
-   //分页查询
+    //分页查询
     ////http://localhost:8080/api/poets/getPage
     @GetMapping("/getPage")
     public ResponseEntity<List<Poet>> getIssues(@RequestParam(defaultValue = "2") Integer pageNum,
@@ -57,5 +51,63 @@ public class PoetController {
         List<Poet> poets = poetService.findPoetsByPage(pageNum, pageSize);
         return ResponseEntity.ok(poets); // 使用 ResponseEntity.ok() 来返回成功的响应
     }
+
+
+
+    @PostMapping("/add")
+    public ResponseEntity<Integer> addPoet(@RequestBody Poet poet) {
+        try {
+            int result = poetService.insert(poet);
+            if (result == 1) {
+                return ResponseEntity.ok(1); // 成功返回1
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0); // 失败返回0
+            }
+        } catch (Exception e) {
+            logger.error("Error inserting poet", e); // 打印异常信息和堆栈跟踪
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0); // 异常返回0
+        }
+    }
+
+     // 更新诗人信息
+     @PutMapping("/{id}")
+     public ResponseEntity<Integer> updatePoet(@PathVariable int id, @RequestBody Poet poet) {
+        try {
+            poet.setId(id); // 确保更新的是正确的诗人信息
+            int result = poetService.update(poet);
+            if (result > 0) {
+                return ResponseEntity.ok(1); // 成功返回1
+            } else {
+                return ResponseEntity.badRequest().body(0); // 失败返回0
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0); // 异常返回0
+        }
+    }
+
+        // 批量插入诗人
+        // 批量插入诗人
+        @PostMapping("/batch")
+        public ResponseEntity<List<Poet>> addPoets(@RequestBody List<Poet> poets) {
+            try {
+                poetService.insertPoetsInBatch(poets);
+                return ResponseEntity.ok(poets);
+            } catch (Exception e) {
+                logger.error("Error inserting poets in batch", e); // 打印异常信息和堆栈跟踪
+                return ResponseEntity.badRequest().body(null);
+            }
+        }
+
+        // 批量删除诗人
+        @DeleteMapping("/batch")
+        public ResponseEntity<Integer> deletePoets(@RequestBody List<Integer> ids) {
+            try {
+                poetService.deletePoetsInBatch(ids);
+                return ResponseEntity.ok(1);
+            } catch (Exception e) {
+                return ResponseEntity.ok(0);
+            }
+        }
+
 
 }

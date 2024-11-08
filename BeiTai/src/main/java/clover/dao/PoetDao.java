@@ -18,14 +18,16 @@ public interface PoetDao {
 
     //插入，新增诗人
     @Insert("INSERT INTO poets(name, birthDate, deathDate, dynasty, biography) " +
-            "VALUES(#{name}, #{b2irthDate}, #{deathDate}, #{dynasty}, #{biography})")
+            "VALUES(#{name}, #{birthDate}, #{deathDate}, #{dynasty}, #{biography})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Poet poet);
+
 
     //更改
     @Update("UPDATE poets SET name = #{name}, birthDate = #{birthDate}, " +
             "deathDate = #{deathDate}, dynasty = #{dynasty}, biography = #{biography} WHERE id = #{id}")
-    void update(Poet poet);
+    int update(Poet poet);
+
     //删除诗人
     @Delete("DELETE FROM poets WHERE id = #{id}")
     void delete(int id);

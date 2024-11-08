@@ -18,7 +18,7 @@
     <logger name="java.sql.PreparedStatement" level="DEBUG"/>
 
     <!-- 更具体地，您可以限制日志记录到只包含您的映射器的包名 -->
-     <logger name="com.clover.dao" level="DEBUG"/>
+     <logger name="clover.dao" level="DEBUG"/>
 
     <!-- 如果您想减少非MyBatis日志的数量，您可以将Spring框架和其他组件的级别设置为WARN或ERROR -->
     <logger name="org.springframework" level="WARN"/>

@@ -27,7 +27,7 @@ public class PoetService implements PoetServiceImpl {
 
     //插入诗人
     @Override
-    public Poet insert(Poet poet) {
+    public int insert(Poet poet) {
         // 该方法用于将一个新的Poet对象插入到数据库中，并返回插入的Poet对象
         // 检查数据库中是否已存在同名的诗人
         List<Poet> existingPoets = poetDao.findByMultipleConditions(poet.getName(), null, null);
@@ -42,12 +42,13 @@ public class PoetService implements PoetServiceImpl {
         poetDao.insert(poet);
 
         // 插入操作完成后，返回传入的poet对象
-        return poet;
+        return 1;
     }
     //更改诗人信息
     @Override
-    public void update(Poet poet) {
-        poetDao.update(poet);
+    public int update(Poet poet) {
+        int affectedRows = poetDao.update(poet);
+        return affectedRows > 0 ? 1 : 0;
     }
     //删除诗人
     @Override
