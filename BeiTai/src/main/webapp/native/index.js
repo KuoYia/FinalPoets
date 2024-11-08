@@ -85,16 +85,27 @@
         });
     }
 
+    /**
+     * 根据ID获取诗人信息并更新表格
+     * 使用AJAX发送GET请求到服务器，获取诗人信息后在表格中显示
+     * @function getPoetById
+     */
     function getPoetById() {
-    $.ajax({
-        url: '/api/poets/' + $('#getId').val(), // 修改URL
-        type: 'GET', // 修改请求类型
-        success: function(response) {
-            $('#poetTable').append('<tr><td>' + response.id + '</td><td>' + response.name + '</td><td>' + response.dynasty + '</td><td>' + response.biography + '</td></tr>');
-        },
-        error: function(error) {
-            alert('获取诗人信息时发生错误');
-        }
-    });
+        // 发送AJAX GET请求到服务器，URL根据输入的ID动态生成
+        $.ajax({
+            url: '/api/poets/' + $('#getId').val(), // 修改URL
+            type: 'GET', // 修改请求类型
+            success: function(response) {
+                // 请求成功后，将诗人信息添加到表格中
+                $('#poetTable').append('<tr><td>' + response.id + '</td><td>' + response.name + '</td><td>' + response.dynasty + '</td><td>' + response.biography + '</td></tr>');
+            },
+            error: function(error) {
+                // 请求失败时，弹出错误提示
+                alert('获取诗人时发生错误: ' + error.responseText);
+            }
+        });
+
+
+
 
 }

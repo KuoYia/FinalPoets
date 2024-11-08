@@ -62,7 +62,7 @@ public class Poet {
     }
 
 
- /*   private List<Poem> poems; // 诗句列表
+    private List<Poem> poems; // 诗句列表
 
     public List<Poem> getPoems() {
         return poems;
@@ -71,7 +71,6 @@ public class Poet {
     public void setPoems(List<Poem> poems) {
         this.poems = poems;
     }
-*/
 
     @Override
     public String toString() {

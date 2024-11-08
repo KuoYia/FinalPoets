@@ -56,6 +56,7 @@ public class Poem {
     public void setPoemTypeId(int poemTypeId) {
         this.poemTypeId = poemTypeId;
     }
+
     private Poet author; // 存储对应的诗人信息
 
     // ... 其他getter和setter...

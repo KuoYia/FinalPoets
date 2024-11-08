@@ -1,5 +1,6 @@
 package clover.controller;
 
+import clover.pojo.Poem;
 import clover.pojo.Poet;
 import clover.service.impl.PoetServiceImpl;
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public class PoetController {
 
 
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Integer> addPoet(@RequestBody Poet poet) {
         try {
             int result = poetService.insert(poet);
@@ -109,5 +110,42 @@ public class PoetController {
             }
         }
 
+        //多表连接查询，查询诗人和诗句
+    // clover.controller.PoetController
 
+    // 多表连接查询，查询特定ID的诗人返回诗人及其诗句
+    @GetMapping("/poetAndPoems/{poetId}")
+    public ResponseEntity<?> findPoetAndPoems(@PathVariable int poetId) {
+        try {
+            // 调用服务层的方法查询特定ID的诗人及其诗句
+            List<Poet> poetsWithPoems = poetService.findPoetWithPoemsById(poetId);
+            if (!poetsWithPoems.isEmpty()) {
+                // 由于只查询了一个诗人，所以直接获取第一个元素
+                Poet poetWithPoems = poetsWithPoems.get(0);
+                return ResponseEntity.ok(poetWithPoems); // 如果查询成功且结果不为空，返回查询结果
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Poet with ID " + poetId + " not found."); // 如果诗人不存在，返回404 Not Found状态码
+            }
+        } catch (Exception e) {
+            logger.error("Error finding poet and poems with ID {}", poetId, e); // 打印异常信息和堆栈跟踪
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while finding poet and poems: " + e.getMessage()); // 如果发生异常，返回错误状态和消息
+        }
+    }
+
+    // 多表连接查询，查询特定ID的诗人和诗句
+    @GetMapping("/poetSPoems/{poetId}")
+    public ResponseEntity<?> findPoetSPoems(@PathVariable int poetId) {
+        try {
+            // 调用服务层的方法查询特定ID的诗人及其诗句
+            List<Poem> poems = poetService.selectPoemsByPoetId(poetId);
+            if (poems != null && !poems.isEmpty()) {
+                return ResponseEntity.ok(poems); // 如果查询成功且结果不为空，返回查询结果
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No poems found for poet ID " + poetId); // 如果没有找到诗句，返回404 Not Found状态码
+            }
+        } catch (Exception e) {
+            logger.error("Error finding poems for poet ID {}", poetId, e); // 打印异常信息和堆栈跟踪
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while finding poems: " + e.getMessage()); // 如果发生异常，返回错误状态和消息
+        }
+    }
 }

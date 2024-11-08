@@ -17,4 +17,8 @@ public interface PoetServiceImpl {
 
     List<Poet> findAllPoets(int page, int size);
     public List<Poet> findPoetsByPage(Integer pageNum, Integer pageSize);
+
+    List<Poet> findPoetWithPoemsById(int id);
+
+    List<Poem> selectPoemsByPoetId(int poetId);
 }

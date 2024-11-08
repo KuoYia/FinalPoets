@@ -103,5 +103,14 @@ public class PoetService implements PoetServiceImpl {
         PageHelper.startPage(pageNum, pageSize);
         return poetDao.findAllPoets();
     }
+    @Override
+    public List<Poet> findPoetWithPoemsById(int id) {
+        return poetDao.findPoetWithPoemsById(id);
+    }
+
+    @Override
+    public List<Poem> selectPoemsByPoetId(int poetId) {
+        return poetDao.selectPoemsByPoetId(poetId);
+    }
 
 }
